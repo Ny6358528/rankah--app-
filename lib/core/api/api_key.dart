@@ -1,0 +1,19 @@
+enum ApiKey {
+  status,
+  msg,
+  userName,
+  email,
+  token,
+  profilePhoto,
+  image,
+  file,
+  url,
+  password,
+  passwordConfirm,
+  currentPassword,
+  newPassword,
+  text_response,
+  userId,
+  code,
+  siteId
+}
