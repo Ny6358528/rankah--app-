@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rankah/config/theme/app_theme.dart';
+import 'package:rankah/core/config/theme/app_theme.dart';
 import 'package:rankah/core/functions/bloc_service.dart';
 import 'package:rankah/core/network/dio_helper.dart';
 import 'package:rankah/core/services/service_locator.dart';
@@ -18,7 +18,7 @@ void main() async {
 
   print('App: Initializing service locator');
   await init();
-
+ 
   print('App: Setting up Bloc observer');
   Bloc.observer = BlocService();
 

@@ -35,7 +35,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
     return Scaffold(
       body: Column(
         children: [
-          // 🔽 Dropdown
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: DropdownButtonFormField<String>(
@@ -57,8 +56,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
               },
             ),
           ),
-
-        
           Expanded(
             child: BlocBuilder<HistoryCubit, HistoryState>(
               builder: (context, state) {
@@ -96,25 +93,33 @@ class _HistoryScreenState extends State<HistoryScreen> {
                               children: [
                                 _buildInfo("Car Number", item['carNumber']),
                                 const SizedBox(width: 16),
-                                _buildInfo("Status", item['status']),
-                                const SizedBox(width: 16),
-                                ElevatedButton(
+                                ElevatedButton.icon(
                                   onPressed: () => _showDetailsDialog(item),
-                                  child: const Text("Details"),
+                                  icon: const Icon(Icons.info_outline),
+                                  label: const Text("Details"),
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.blue,
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(width: 8),
-                                ElevatedButton(
+                                ElevatedButton.icon(
                                   onPressed: () {
                                     setState(() {
                                       data.removeAt(index);
                                     });
                                   },
-                                  child: const Text("Delete"),
+                                  icon: const Icon(Icons.delete_outline),
+                                  label: const Text("Delete"),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.grey,
+                                    backgroundColor: Colors.grey.shade600,
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -125,9 +130,16 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     },
                   );
                 } else if (state is HistoryError) {
-                  return Center(child: Text("Error: ${state.message}"));
+                  final isNotFound = state.message.contains('404');
+                  return Center(
+                    child: Text(
+                      isNotFound
+                          ? "No completed reservations found."
+                          : "An error occurred. Please try again.",
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  );
                 }
-
                 return const SizedBox();
               },
             ),
@@ -149,25 +161,79 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
 
   void _showDetailsDialog(Map<String, dynamic> item) {
+    final rawDateTime = item['startTimeOfReservation'];
+    DateTime? parsedDateTime;
+
+    if (rawDateTime != null) {
+      try {
+        parsedDateTime = DateTime.parse(rawDateTime);
+      } catch (e) {}
+    }
+
+    String formattedDate = parsedDateTime != null
+        ? "${parsedDateTime.year}-${_twoDigits(parsedDateTime.month)}-${_twoDigits(parsedDateTime.day)}"
+        : "N/A";
+
+    String formattedTime = parsedDateTime != null
+        ? "${_twoDigits(parsedDateTime.hour)}:${_twoDigits(parsedDateTime.minute)}"
+        : "N/A";
+
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text("Reservation Details"),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: Row(
+          children: const [
+            Icon(Icons.directions_car, color: Colors.blue),
+            SizedBox(width: 8),
+            Text(
+              "Reservation Details",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: item.entries.map((entry) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 2),
-              child: Text("${entry.key}: ${entry.value}"),
-            );
-          }).toList(),
+          children: [
+            _buildDetailRow("Car Number", item['carNumber']),
+            const Divider(),
+            _buildDetailRow("Date", formattedDate),
+            const Divider(),
+            _buildDetailRow("Time", formattedTime),
+            const Divider(),
+            _buildDetailRow("Parking Spot", item['parkingSpotId']),
+          ],
         ),
         actions: [
-          TextButton(
-            child: const Text("Close"),
+          TextButton.icon(
+            icon: const Icon(Icons.close),
+            label: const Text("Close"),
             onPressed: () => Navigator.of(context).pop(),
           )
+        ],
+      ),
+    );
+  }
+
+  String _twoDigits(int n) => n.toString().padLeft(2, '0');
+
+  Widget _buildDetailRow(String title, dynamic value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "$title: ",
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Expanded(
+            child: Text(
+              value?.toString() ?? 'N/A',
+              style: const TextStyle(color: Colors.black54),
+            ),
+          ),
         ],
       ),
     );

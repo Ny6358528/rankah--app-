@@ -4,9 +4,9 @@ class ApiUrl {
   static String signUp = "$baseUrl/Auth/Register";
   static String parkingSpots = "$baseUrl/api/ParkingSpots";
   static String pendingReservations = "$baseUrl/api/Reservation/pending";
-  static const String updateProfileInfo = "/me/info";
-
-  static String changePassword = "/me/change-password";
+  static const String profileInfo = '/me';  
+  static const String updateProfileInfo = '/me/info'; 
+  static const String changePassword = '/change-password';
 
   static void printUrls() {
     print('ApiUrl: Base URL: $baseUrl');

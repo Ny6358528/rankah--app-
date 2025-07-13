@@ -1,3 +1,4 @@
+// reset_password_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rankah/feature/authentication/logic/cubit/forget_password_cubit.dart';
@@ -21,7 +22,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       listener: (context, state) {
         if (state is ResetPasswordSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Password Reset Successfully")),
+            const SnackBar(content: Text("Password has been reset successfully.")),
           );
           Navigator.pop(context);
         } else if (state is ForgotPasswordFailure) {

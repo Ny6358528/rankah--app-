@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rankah/core/services/service_locator.dart';
-import 'package:rankah/feature/reservation/logic/cubit/reservation_cubit.dart';
 import 'package:rankah/feature/reservation/presentation/widgets/pending_screen_body.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

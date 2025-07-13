@@ -94,7 +94,7 @@ class _SpotsItemsState extends State<SpotsItems> {
   // Helper method to get status color
   Color _getStatusColor(ParkingSpotModel spot) {
     if (spot.isAvailable) return AppColors.primaryColor;
-    if (spot.isReserved) return Colors.amber; // لون الانتظار
+    if (spot.isReserved) return Colors.amber; 
     if (spot.isOccupied) return Colors.red;
     return AppColors.errorColor;
   }

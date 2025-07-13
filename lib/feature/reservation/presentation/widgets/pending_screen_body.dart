@@ -53,16 +53,16 @@ class _PendingScreenBodyState extends State<PendingScreenBody> {
           );
           setState(() => reservationCancelled = true);
           _safeUpdateHistory(context);
-          // Refresh pending reservations مباشرة
+         
           try {
             context
                 .read<PendingReservationCubit>()
                 .refreshPendingReservations();
           } catch (_) {}
-          // Pop to home بعد delay بسيط
+     
           Future.delayed(const Duration(milliseconds: 600), () {
             Navigator.of(context).popUntil((route) => route.isFirst);
-            // بعد الرجوع للهوم، اعمل refresh للـ HomeCubit
+    
             Future.delayed(const Duration(milliseconds: 200), () {
               try {
                 context.read<HomeCubit>().refreshParkingSpots();

@@ -1,9 +1,10 @@
+// exceptions.dart
 class AppException implements Exception {
   final String? message;
   AppException([this.message]);
 
   @override
-  String toString() => message ?? runtimeType.toString();
+  String toString() => message ?? "Something went wrong.";
 }
 
 class BadRequestException extends AppException {
@@ -27,17 +28,21 @@ class InternalServerErrorException extends AppException {
 }
 
 class NoInternetConnectionException extends AppException {
-  NoInternetConnectionException([String? message]) : super(message ?? "No internet connection.");
+  NoInternetConnectionException([String? message])
+      : super(message ?? "No internet connection.");
 }
 
 class DeadlineExceededException extends AppException {
-  DeadlineExceededException([String? message]) : super(message ?? "Request timeout.");
+  DeadlineExceededException([String? message])
+      : super(message ?? "Request timeout.");
 }
 
 class RequestCancelledException extends AppException {
-  RequestCancelledException([String? message]) : super(message ?? "Request was cancelled.");
+  RequestCancelledException([String? message])
+      : super(message ?? "Request was cancelled.");
 }
 
 class UnknownException extends AppException {
-  UnknownException([String? message]) : super(message ?? "Something went wrong.");
+  UnknownException([String? message])
+      : super(message ?? "Something went wrong.");
 }

@@ -214,7 +214,7 @@ class _PendingScreenState extends State<PendingScreen> {
                     onTap: () {
                       setState(() {
                         selectedSpotId = spotId;
-                        selectedReservationId = 1; // Default reservation ID
+                        selectedReservationId = 1; 
                       });
                     },
                     borderRadius: BorderRadius.circular(12.r),

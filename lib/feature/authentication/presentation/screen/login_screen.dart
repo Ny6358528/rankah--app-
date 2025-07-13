@@ -8,11 +8,9 @@ import 'package:rankah/core/functions/navigation.dart';
 import 'package:rankah/core/utils/app_colors.dart';
 import 'package:rankah/core/utils/app_padding.dart';
 import 'package:rankah/feature/authentication/logic/cubit/login_cubit.dart';
-
+import 'package:rankah/feature/authentication/logic/cubit/login_state.dart';
 import 'package:rankah/feature/authentication/presentation/widgets/login_screen_body.dart';
 import 'package:rankah/feature/home/presentation/screen/home_screen.dart';
-
-import '../../logic/cubit/login_state.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -20,7 +18,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-    create: (context) => getIt<LoginCubit>(),
+      create: (context) => getIt<LoginCubit>(),
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccess) {

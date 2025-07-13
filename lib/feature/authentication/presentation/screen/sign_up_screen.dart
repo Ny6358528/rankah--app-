@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -43,7 +42,7 @@ class SignUpScreen extends StatelessWidget {
                 const SpinKitFadingCircle(color: AppColors.secondaryColor),
             color: AppColors.thirdColor,
             child: Scaffold(
-              appBar: AppBar(title: const Text('Sign UP')),
+              appBar: AppBar(title: const Text('Sign Up')),
               body: const SafeArea(
                 child: Padding(
                   padding: EdgeInsets.all(AppPadding.p16),
